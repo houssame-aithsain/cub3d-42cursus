@@ -20,6 +20,7 @@ int main()
 	t_src src;
 	
 	i = 0;
+	// map reader
 	fd = open("map.cub", O_RDONLY);
 	src.map = malloc(sizeof(char *) * 200 + 1);
 	tmp = get_next_line(fd);
@@ -32,22 +33,6 @@ int main()
 		i++;
 	}
 	src.map[i] = NULL;
-	//tmp map init
-	/*src.map = malloc(sizeof(char *) * 20 + 1);
-	while (++i < 20)
-	{
-		x = -1;
-		src.map[i] = malloc(sizeof(char) * 20 + 1);
-		while (++x < 20)
-		{
-			if (!i || i == 19 || !x || x == 19)
-				src.map[i][x] = '1';
-			else
-				src.map[i][x] = '0';
-		}
-		src.map[i][x] = 0;
-	}*/
-	src.map[i] = NULL;
 	// end map
 	// map printer
 	/*i = -1;
@@ -55,7 +40,8 @@ int main()
 		printf("%s\n", src.map[i]);
 	exit(0);*/
 	// end print
-	map_drawer(&src);	
+	map_drawer(&src);
+	player_drawer(&src);
 	mlx_image_to_window(src.mlx, src.img, 0, 0);
 	mlx_loop(src.mlx);
     mlx_terminate(src.mlx);

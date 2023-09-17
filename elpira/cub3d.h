@@ -23,8 +23,12 @@ typedef struct s_src
 	int			x;
 	int			y;
 	//end ps
+	//player x, y
+	int			plx;
+	int			ply;
+	//end player
 }	t_src;
 
 void	map_drawer(t_src *src);
-
+void	player_drawer(t_src *src);
 #endif // !CUB3D_H
