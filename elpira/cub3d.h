@@ -6,12 +6,23 @@
 #include <string.h>
 #include "/Users/hait-hsa/MLX42/include/MLX42/MLX42.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+#define WIDTH 0
+#define HEIGHT 1
+
+typedef struct s_src
+{
+	char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	mlx_image_t	*img;
+	// ps vars
+	int			px;
+	int			py;
+	int			x;
+	int			y;
+	//end ps
+}	t_src;
+
+void	map_drawer(t_src *src);
 
 #endif // !CUB3D_H

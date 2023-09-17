@@ -7,13 +7,13 @@ NAME		=	cub3d
 
 LIBFT		=	./includes/libft/libft.a
 
-EXEC		=	cub3d.c
+EXEC		=	cub3d.c map_drawer.c
 EXOBJ		=	$(EXEC:.c=.o)
 
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT)    $(EXOBJ)
-	$(CC)  $(MLX) -Iinclude $(MLXFLAGS) $(EXOBJ) -o $(NAME)
+	$(CC) $(MLX) -Iinclude $(MLXFLAGS) -fsanitize=address $(EXOBJ) -o $(NAME)
 
 $(LIBFT)	:
 	make -C ./includes/libft

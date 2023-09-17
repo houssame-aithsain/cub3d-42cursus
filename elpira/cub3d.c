@@ -2,29 +2,36 @@
 
 int main()
 {
-	int			i;
-	int			x;
-	void		*mlx;
-	void		*mlx_win;
-	mlx_image_t	*img;
-	char map[5][10] = {
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1},
-	};
-
-	x = -1;
-	mlx = mlx_init(1000, 1000, "CUB3D", true);
-	img = mlx_new_image(mlx, 256, 256);
-	while (++x < 50)
+	int i;
+	int x;
+	t_src src;
+	
+	i = -1;
+	//tmp map init
+	src.map = malloc(sizeof(char *) * 20 + 1);
+	while (++i < 20)
 	{
-		i = -1;
-		while (++i < 50)
-			mlx_put_pixel(img, x, i, 0xFF0000FF);
+		x = -1;
+		src.map[i] = malloc(sizeof(char) * 20 + 1);
+		while (++x < 20)
+		{
+			if (!i || i == 19 || !x || x == 19)
+				src.map[i][x] = '1';
+			else
+				src.map[i][x] = '0';
+		}
+		src.map[i][x] = 0;
 	}
-	mlx_image_to_window(mlx, img, 0, 0);
-	mlx_loop(mlx);
-    mlx_terminate(mlx);
+	src.map[i] = NULL;
+	// end map
+	// map printer
+	i = -1;
+	/*while (src.map[++i])
+		printf("%s\n", src.map[i]);
+	exit(0);*/
+	// end print
+	map_drawer(&src);	
+	mlx_image_to_window(src.mlx, src.img, 0, 0);
+	mlx_loop(src.mlx);
+    mlx_terminate(src.mlx);
 }
