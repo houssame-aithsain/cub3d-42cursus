@@ -3,7 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <fcntl.h>
+# include "./includes/libft/libft.h"
+#include "./includes/get_next_line/get_next_line.h"
 #include "/Users/hait-hsa/MLX42/include/MLX42/MLX42.h"
 
 #define WIDTH 0

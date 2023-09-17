@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 22:25:55 by hait-hsa          #+#    #+#             */
-/*   Updated: 2022/10/20 23:09:28 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/17 13:33:09 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft/libft.h"
 
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strchr(const char *s, int c);

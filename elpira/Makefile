@@ -7,13 +7,14 @@ NAME		=	cub3d
 
 LIBFT		=	./includes/libft/libft.a
 
-EXEC		=	cub3d.c map_drawer.c
+EXEC		=	cub3d.c map_drawer.c ./includes/get_next_line/get_next_line.c \
+				./includes/get_next_line/get_next_line_utils.c
 EXOBJ		=	$(EXEC:.c=.o)
 
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT)    $(EXOBJ)
-	$(CC) $(MLX) -Iinclude $(MLXFLAGS) -fsanitize=address $(EXOBJ) -o $(NAME)
+	$(CC) $(MLX) -Iinclude $(MLXFLAGS) -fsanitize=address $(EXOBJ) $(LIBFT) -o $(NAME)
 
 $(LIBFT)	:
 	make -C ./includes/libft

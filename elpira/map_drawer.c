@@ -3,16 +3,26 @@
 int get_map_lent(t_src *src, int flag)
 {
 	int i;
+	int y;
+	int lent;
 
-	i = 0;
+	y = -1;
+	lent = 0;
 	if (flag)
 	{
-		while (src->map[i])
-			i++;
-		return (i * 50);
+		while (src->map[++y])
+		{
+			i = 0;
+			while (src->map[y][i])
+				i++;
+			if (lent < i)
+				lent = i;
+		}
+		return (lent * 50);
 	}
 	else
 	{
+		i = 0;
 		while (src->map[0][i])
 			i++;
 	}
