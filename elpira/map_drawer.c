@@ -53,8 +53,6 @@ void map_drawer(t_src *src)
 {
 	src->y = 0;
 	src->py = 0;
-	src->mlx = mlx_init(get_map_lent(src, HEIGHT), get_map_lent(src, WIDTH), "CUB3D", true);
-	src->img = mlx_new_image(src->mlx, get_map_lent(src, HEIGHT), get_map_lent(src, WIDTH));
 	while (src->map[src->y])
 	{
 		src->x = 0;
@@ -68,10 +66,10 @@ void map_drawer(t_src *src)
 				_put_pixel(src, 50, 0x2FC546);
 			else
 				_put_pixel(src, 50, 0xFFFFFF);
-			if (src->map[src->y][src->x] == 'N')
+			if (src->plx == -1 && src->map[src->y][src->x] == 'N')
 			{
 				// just to see the player position
-				_put_pixel(src, 50, 0xF812FF);
+				_put_pixel(src, 50, 0xF81200);
 				// end
 				src->plx = src->x;
 				src->ply = src->y;

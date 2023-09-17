@@ -40,8 +40,12 @@ int main()
 		printf("%s\n", src.map[i]);
 	exit(0);*/
 	// end print
+	src.plx = -1;
+	src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);
+	src.img = mlx_new_image(src.mlx, get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH));
 	map_drawer(&src);
 	player_drawer(&src);
+	mlx_loop_hook(src.mlx, &_movement, &src);
 	mlx_image_to_window(src.mlx, src.img, 0, 0);
 	mlx_loop(src.mlx);
     mlx_terminate(src.mlx);

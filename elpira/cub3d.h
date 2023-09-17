@@ -17,18 +17,21 @@ typedef struct s_src
 	void		*mlx;
 	void		*mlx_win;
 	mlx_image_t	*img;
+	mlx_key_data_t keydata;
 	// ps vars
-	int			px;
-	int			py;
+	float		px;
+	float		py;
 	int			x;
 	int			y;
 	//end ps
 	//player x, y
-	int			plx;
-	int			ply;
+	float		plx;
+	float		ply;
 	//end player
 }	t_src;
 
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
+void	_movement(void *src);
+int get_map_lent(t_src *src, int flag);
 #endif // !CUB3D_H
