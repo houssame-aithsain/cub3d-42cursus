@@ -15,7 +15,7 @@ int get_map_lent(t_src *src, int flag)
 			i = 0;
 			while (src->map[y][i])
 				i++;
-			if (lent < i)
+			if (i > lent)
 				lent = i;
 		}
 		return (lent * 50);
@@ -23,7 +23,7 @@ int get_map_lent(t_src *src, int flag)
 	else
 	{
 		i = 0;
-		while (src->map[0][i])
+		while (src->map[i])
 			i++;
 	}
 	return (i * 50);
@@ -66,6 +66,8 @@ void map_drawer(t_src *src)
 				_put_pixel(src, 0xFF0000FF);
 			else if (src->map[src->y][src->x] == '0')
 				_put_pixel(src, 0xFFFFFF);
+			else if (src->map[src->y][src->x] == 32)
+				_put_pixel(src, 0x2FC546);
 			src->x++;
 		}
 		src->y++;

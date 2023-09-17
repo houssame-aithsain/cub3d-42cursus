@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void *_new_line_remover(char *tmp)
+void _new_line_remover(char *tmp)
 {
 	int i;
 
