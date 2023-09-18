@@ -35,5 +35,6 @@ typedef struct s_src
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
 void	_movement(void *src);
-int get_map_lent(t_src *src, int flag);
+int		get_map_lent(t_src *src, int flag);
+void	DDA(t_src *src);
 #endif // !CUB3D_H
