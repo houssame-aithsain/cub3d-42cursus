@@ -69,10 +69,10 @@ void map_drawer(t_src *src)
 			if (src->plx == -1 && src->map[src->y][src->x] == 'N')
 			{
 				// just to see the player position
-				_put_pixel(src, 50, 0xF81200);
+				//_put_pixel(src, 50, 0xF81200);
 				// end
-				src->plx = src->x;
-				src->ply = src->y;
+				src->plx = src->x * 50;
+				src->ply = src->y * 50;
 			}
 			src->x++;
 		}

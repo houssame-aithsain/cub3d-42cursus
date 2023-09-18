@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <math.h>
 # include "./includes/libft/libft.h"
 #include "./includes/get_next_line/get_next_line.h"
 #include "/Users/hait-hsa/MLX42/include/MLX42/MLX42.h"
@@ -27,6 +28,7 @@ typedef struct s_src
 	//player x, y
 	float		plx;
 	float		ply;
+	float		pa;
 	//end player
 }	t_src;
 
