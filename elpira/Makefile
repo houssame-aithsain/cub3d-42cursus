@@ -1,7 +1,7 @@
 MLX 		= /Users/hait-hsa/MLX42/build/libmlx42.a
 CC			=	gcc
 #CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
-MLXFLAGS	=	$(MLX) -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L "/Users/hait-hsa/goinfre/homebrew/opt/glfw/lib/"
+MLXFLAGS	=	$(MLX) -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L "/Users/hait-hsa/.brew/opt/glfw/lib/"
 RM			=	rm -rf
 NAME		=	cub3d
 

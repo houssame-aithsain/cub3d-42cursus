@@ -6,10 +6,9 @@ void DDA(t_src *src)
     // calculate dx & dy
 	float x0 = src->plx + 25;
 	float y0 = src->ply + 25;
-	float rot = M_PI / 2;
-	float x1 = x0 + cos(src->pa) * 100;
-	float y1 = y0 + sin(src->pa) * 100;
-    int dx = x1 - y0;
+	float x1 = x0 - cos(src->pa) * 500;
+	float y1 = y0 - sin(src->pa) * 500;
+    int dx = x1 - x0;
     int dy = y1 - y0;
   
     // calculate steps required for generating pixels
@@ -23,10 +22,10 @@ void DDA(t_src *src)
     float X = x0;
     float Y = y0;
     for (int i = 0; i <= steps; i++) {
-       mlx_put_pixel(src->img, round(X), round(Y), 0xF8003C); // put pixel at (X,Y)
+		if (X > 0 && X < src->img->width && Y > 0 && Y < src->img->height)
+       		mlx_put_pixel(src->img, X, Y, 0xF8003C); // put pixel at (X,Y)
         X += Xinc; // increment in x at each step
         Y += Yinc; // increment in y at each step
-//        delay(100); // for visualization of line-
                     // generation step by step
     }
 }

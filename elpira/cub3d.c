@@ -41,7 +41,7 @@ int main()
 	exit(0);*/
 	// end print
 	src.plx = -1;
-	src.pa = M_2_PI;
+	src.pa = 90 * (M_PI / 180);
 	src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);
 	src.img = mlx_new_image(src.mlx, get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH));
 	map_drawer(&src);
