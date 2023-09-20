@@ -27,9 +27,23 @@ void _movement(void *src)
 		sr->plx += cos(sr->pa + (M_PI / 2));
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_LEFT))
+	{
+		// if (sr->pa > 1.570796)
+		// 	sr->pa = -4.712389;
+		// if (sr->pa < -4.712389)
+		// 	sr->pa = 1.570796;
 		sr->pa -= 0.1;
+		DDA(src);
+	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_RIGHT))
+	{
+		// if (sr->pa > 1.570796)
+		// 	sr->pa = -4.712389;
+		// if (sr->pa < -4.712389)
+		// 	sr->pa = 1.570796;
 		sr->pa += 0.1;
+		DDA(src);
+	}
 	map_drawer(sr);
 	player_drawer(sr);
 }

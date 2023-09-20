@@ -29,6 +29,7 @@ typedef struct s_src
 	float		plx;
 	float		ply;
 	float		pa;
+	float		view_angle;
 	//end player
 }	t_src;
 

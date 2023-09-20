@@ -44,9 +44,9 @@ int main()
 	src.pa = 90 * (M_PI / 180);
 	src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);
 	src.img = mlx_new_image(src.mlx, get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH));
+	mlx_loop_hook(src.mlx, &_movement, &src);
 	map_drawer(&src);
 	player_drawer(&src);
-	mlx_loop_hook(src.mlx, &_movement, &src);
 	mlx_image_to_window(src.mlx, src.img, 0, 0);
 	mlx_loop(src.mlx);
     mlx_terminate(src.mlx);
