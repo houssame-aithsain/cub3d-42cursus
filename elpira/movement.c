@@ -27,9 +27,15 @@ void _movement(void *src)
 		sr->plx += cos(sr->pa + (M_PI / 2));
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_LEFT))
-		sr->pa -= 0.2;
+	{
+		sr->pa -= 0.1;
+		_normalize_angle(&sr->pa);
+	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_RIGHT))
-		sr->pa += 0.2;
+	{
+		sr->pa += 0.1;
+		_normalize_angle(&sr->pa);
+	}
 	map_drawer(sr);
 	player_drawer(sr);
 }

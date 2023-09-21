@@ -54,4 +54,5 @@ void	player_drawer(t_src *src);
 void	_movement(void *src);
 int		get_map_lent(t_src *src, int flag);
 void	DDA(t_src *src);
+void _normalize_angle(float *src);
 #endif // !CUB3D_H
