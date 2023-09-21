@@ -31,6 +31,19 @@ typedef struct s_src
 	float		pa;
 	float		view_angle;
 	//end player
+	//wall_hit
+	float	wall_hitx;
+	float	wall_hity;
+	float	distance;
+	float	xintercept;
+	float	yintercept;
+	float	xstep;
+	float	ystep;
+	int		irfd;
+	int		irfu;
+	int		irfr;
+	int		irfl;
+	//end wall
 }	t_src;
 
 void	map_drawer(t_src *src);
