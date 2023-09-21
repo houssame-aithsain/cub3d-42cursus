@@ -1,19 +1,24 @@
 #include "cub3d.h"
 
-void	_normalize_angle(t_src *src)
-{
-	src->view_angle = fmod(src->view_angle, 2 * M_PI);
-	if (src->view_angle < 0)
-		src->view_angle = (2 * M_PI) + src->view_angle;
+void _normalize_angle(t_src *src) {
+    src->view_angle = fmod(src->view_angle, 2 * M_PI);
+    if (src->view_angle < 0)
+        src->view_angle += 2 * M_PI;
 }
 
-int map_has_wall_at(float x_to_check, float y_to_check, t_src *src)
-{
-	printf("y==[%d]\nx==[%d]\n", (int)floor(y_to_check / 50), (int)floor(x_to_check / 50));
-	return (0);
+int map_has_wall_at(float x_to_check, float y_to_check, t_src *src) {
+    printf("y==[%d]\nx==[%d]\n", (int)floor(y_to_check / 50), (int)floor(x_to_check / 50));
+    // Add appropriate logic to check if there's a wall at the specified coordinates
+    // Return appropriate result
+    return 0;
 }
 
-float	_is_wall(t_src *src)
+float distance_between_pointes(float plx, float ply, float horz_wall_hit_x, float horz_wall_hit_y)
+{
+	return sqrt(((horz_wall_hit_x - plx) * (horz_wall_hit_x - plx)) + ((horz_wall_hit_y - ply) * (horz_wall_hit_y - ply)));
+}
+
+void	_is_wall(t_src *src)
 {
 	int found_h_wall_hit;
 	float horz_wall_hit_x;
@@ -50,29 +55,86 @@ float	_is_wall(t_src *src)
 	src->xstep *= (src->irfr && src->xstep < 0) ? -1 : 1;
 	next_h_touch_x = src->xintercept;
 	next_h_touch_y = src->yintercept;
-	while(next_h_touch_x >= 0 && next_h_touch_x <= src->img->width
-		&& next_h_touch_y >= 0 && next_h_touch_y <= 50)
-	{
-		x_to_check = next_h_touch_x;
-		y_to_check = next_h_touch_y + (src->irfu ? -1 : 0);
-		if (map_has_wall_at(x_to_check, y_to_check, src))
+	while (next_h_touch_x >= 0 && next_h_touch_x <= src->img->width &&
+           next_h_touch_y >= 0 && next_h_touch_y <= 50) {
+        x_to_check = next_h_touch_x;
+        y_to_check = next_h_touch_y + (src->irfu ? -1 : 0);
+        if (map_has_wall_at(x_to_check, y_to_check, src))
 		{
-			horz_wall_hit_x = next_h_touch_x;
-			horz_wall_hit_y = next_h_touch_y;
-			horz_wall_content = src->map[(int)floor(y_to_check / 50)][(int)floor(y_to_check / 50)];
-			printf("horz_wall=[%f]\n", horz_wall_content / 50);
-			found_h_wall_hit = true;
-			break;
-		}
+            horz_wall_hit_x = next_h_touch_x;
+            horz_wall_hit_y = next_h_touch_y;
+            horz_wall_content = src->map[(int)floor(y_to_check / 50)][(int)floor(x_to_check / 50)];
+            found_h_wall_hit = 1;
+            break;
+        }
 		else
 		{
-			next_h_touch_x += src->xstep;
-			next_h_touch_y += src->ystep;
-		}
-		// printf("x====[%f]\n", x_to_check);
-		// printf("y====[%f]\n", y_to_check);
+            next_h_touch_x += src->xstep;
+            next_h_touch_y += src->ystep;
+        }
+    }
+
+	//ver_part
+	int found_v_wall_hit;
+	float vert_wall_hit_x;
+	float vert_wall_hit_y;
+	float vert_wall_content;
+	float next_v_touch_x;
+	float next_v_touch_y;
+
+	found_v_wall_hit = false;
+	found_v_wall_hit = 0;
+	vert_wall_hit_x = 0;
+	vert_wall_hit_y = 0;
+	vert_wall_content = 0;
+	//Yintercept
+	src->yintercept = floor(src->plx / 50) * 50;
+	src->yintercept += src->irfr ? 50 : 0;
+	//Xintercept
+	src->xintercept = src->ply + (src->xintercept - src->plx) / tan(src->view_angle);
+	//end
+
+	src->xstep = 50;
+	src->xstep *= src->irfl ? -1 : 1;
+
+	src->ystep = 50 / tan(src->view_angle);
+	src->ystep *= (src->irfu && src->xstep > 0) ? -1 : 1;
+	src->ystep *= (src->irfd && src->xstep < 0) ? -1 : 1;
+	next_v_touch_x = src->xintercept;
+	next_v_touch_y = src->yintercept;
+	while (next_v_touch_x >= 0 && next_v_touch_x <= src->img->width &&
+           next_v_touch_y >= 0 && next_v_touch_y <= 50) {
+        x_to_check = next_v_touch_x + (src->irfl ? -1 : 0);
+        y_to_check = next_v_touch_y;
+        if (map_has_wall_at(x_to_check, y_to_check, src))
+		{
+            vert_wall_hit_x = next_v_touch_x;
+            vert_wall_hit_y = next_v_touch_y;
+            vert_wall_content = src->map[(int)floor(y_to_check / 50)][(int)floor(x_to_check / 50)];
+            found_v_wall_hit = 1;
+            break;
+        }
+		else
+		{
+            next_v_touch_x += src->xstep;
+            next_v_touch_y += src->ystep;
+        }
+    }
+	//
+	float horz_hit_d = found_h_wall_hit
+		? distance_between_pointes(src->plx, src->ply, horz_wall_hit_x, horz_wall_hit_y)
+		: INT_MAX;
+	float vert_hit_distance = found_v_wall_hit
+		? distance_between_pointes(src->plx, src->ply, vert_wall_hit_x, vert_wall_hit_y)
+		: INT_MAX;
+	if (vert_hit_distance < horz_hit_d)
+	{
+		src->distance = vert_hit_distance;
+		src->wall_hitx = vert_wall_hit_x;
+		src->wall_hity = vert_wall_hit_y;
+		src->wall_hit_content = 
+		src->was_hit_vertical = true;
 	}
-	return (0);
 }
 
 void DDA(t_src *src)
@@ -105,11 +167,14 @@ void draw_ray(t_src *src)
     int num_rays = src->img->width;  // Number of rays
     float ray_angle_increment = 60.0 / num_rays;
 
+	_normalize_angle(src);
 	src->view_angle = src->pa - 30 * (M_PI / 180);
     for (int i = 0; i < num_rays; i++)
     {
+		src->view_angle = fmod(src->view_angle, 2 * M_PI);
+			if (src->view_angle < 0)
+			src->view_angle = (2 * M_PI) + src->view_angle;
 		// logic
-		_normalize_angle(src);
 		_is_wall(src);
         DDA(src);
 		src->view_angle += ray_angle_increment *  (M_PI / 180);
