@@ -13,6 +13,24 @@
 #define WIDTH 0
 #define HEIGHT 1
 
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	was_hit_vertical;
+	float	wall_hit_content;
+	float	wall_hitx;
+	float	wall_hity;
+	float	distance;
+	float	xintercept;
+	float	yintercept;
+	float	xstep;
+	float	ystep;
+	int		irfd;
+	int		irfu;
+	int		irfr;
+	int		irfl;
+} ray[1250];
+
 typedef struct s_src
 {
 	char		**map;
@@ -47,12 +65,13 @@ typedef struct s_src
 	int		irfr;
 	int		irfl;
 	//end wall
+	ray rays;
 }	t_src;
 
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
 void	_movement(void *src);
 int		get_map_lent(t_src *src, int flag);
-void	DDA(t_src *src);
+void	DDA(t_src *src, int i);
 void _normalize_angle(float *src);
 #endif // !CUB3D_H

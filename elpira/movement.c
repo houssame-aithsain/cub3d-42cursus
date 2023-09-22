@@ -8,13 +8,13 @@ void _movement(void *src)
 	//printf("ps==[%d\n]", (int)((sr->ply - 10) / 50));
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_W))
 	{
-		sr->ply -= sin(sr->pa);
-		sr->plx -= cos(sr->pa);
+		sr->ply += sin(sr->pa);
+		sr->plx += cos(sr->pa);
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 	{
-		sr->ply += sin(sr->pa);
-		sr->plx += cos(sr->pa);
+		sr->ply -= sin(sr->pa);
+		sr->plx -= cos(sr->pa);
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
 	{
@@ -28,13 +28,13 @@ void _movement(void *src)
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_LEFT))
 	{
-		sr->pa -= 0.1;
-		_normalize_angle(&sr->pa);
+		sr->pa -= 0.01;
+		// _normalize_angle(&sr->pa);
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_RIGHT))
 	{
-		sr->pa += 0.1;
-		_normalize_angle(&sr->pa);
+		sr->pa += 0.01;
+		// _normalize_angle(&sr->pa);
 	}
 	map_drawer(sr);
 	player_drawer(sr);
