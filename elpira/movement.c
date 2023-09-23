@@ -7,28 +7,28 @@ void _movement(void *src)
 	sr = (t_src *)src;
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_W))
 	{
-		sr->ply += sin(sr->pa);
-		sr->plx += cos(sr->pa);
-	}
-	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
-	{
 		sr->ply -= sin(sr->pa);
 		sr->plx -= cos(sr->pa);
 	}
-	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 	{
-		sr->ply += sin(sr->pa + (M_PI / 2));
-		sr->plx += cos(sr->pa + (M_PI / 2));
+		sr->ply += sin(sr->pa);
+		sr->plx += cos(sr->pa);
 	}
-	if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
 	{
 		sr->ply -= sin(sr->pa + (M_PI / 2));
 		sr->plx -= cos(sr->pa + (M_PI / 2));
 	}
+	if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
+	{
+		sr->ply += sin(sr->pa + (M_PI / 2));
+		sr->plx += cos(sr->pa + (M_PI / 2));
+	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_LEFT))
-		sr->pa -= 0.01;
+		sr->pa -= 0.05;
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_RIGHT))
-		sr->pa += 0.01;
-	map_drawer(sr);
-	player_drawer(sr);
+		sr->pa += 0.05;
+	_normalize_angle(&sr->pa);
+	randring(src);
 }

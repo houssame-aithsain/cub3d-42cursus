@@ -9,7 +9,7 @@ LIBFT		=	./includes/libft/libft.a
 
 EXEC		=	cub3d.c map_drawer.c ./includes/get_next_line/get_next_line.c \
 				./includes/get_next_line/get_next_line_utils.c player_drawer.c \
-				movement.c
+				movement.c ./randring.c
 EXOBJ		=	$(EXEC:.c=.o)
 
 all			:	$(NAME)

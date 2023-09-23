@@ -12,7 +12,8 @@
 
 #define WIDTH 0
 #define HEIGHT 1
-#define FOV_ANGLE 60 * (M_PI / 180)
+#define FOV_ANGLE (60 * (M_PI / 180))
+#define TILE_SIZE 50
 
 typedef struct s_ray
 {
@@ -70,10 +71,13 @@ typedef struct s_src
 	ray rays;
 }	t_src;
 
+void	randring(t_src *src);
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
 void	_movement(void *src);
 int		get_map_lent(t_src *src, int flag);
-void	DDA(t_src *src, int i);
-void _normalize_angle(float *src);
+void	DDA(t_src *src, float xx, float yy);
+void	draw_ray(t_src *src);
+void	_normalize_angle(float *src);
+int		map_has_wall_at(float x_to_check, float y_to_check, t_src *src);
 #endif // !CUB3D_H
