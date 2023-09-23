@@ -12,6 +12,7 @@
 
 #define WIDTH 0
 #define HEIGHT 1
+#define FOV_ANGLE 60 * (M_PI / 180)
 
 typedef struct s_ray
 {
@@ -65,6 +66,7 @@ typedef struct s_src
 	int		irfr;
 	int		irfl;
 	//end wall
+	int rm;
 	ray rays;
 }	t_src;
 

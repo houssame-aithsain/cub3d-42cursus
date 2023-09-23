@@ -33,13 +33,6 @@ int main()
 		i++;
 	}
 	src.map[i] = NULL;
-	// end map
-	// map printer
-	/*i = -1;
-	while (src.map[++i])
-		printf("%s\n", src.map[i]);
-	exit(0);*/
-	// end print
 	src.plx = -1;
 	src.pa = 90 * (M_PI / 180);
 	src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);

@@ -9,7 +9,7 @@ void _normalize_angle(float *src) {
 int map_has_wall_at(float x_to_check, float y_to_check, t_src *src) {
 	// if ((int)(y_to_check / 50) >= 14 || (int)(x_to_check /50) >= 26 || y_to_check < 0 || x_to_check < 0)
 	// 	return (1);
-	if(src->map[(int)(y_to_check / 50)][(int)(x_to_check / 50)] == '1')
+	if(src->map[(int)floor(y_to_check / 50)][(int)floor(x_to_check / 50) - src->rm] == '1')
 		return (1);
     return 0;
 }
@@ -29,8 +29,9 @@ void	_is_wall(t_src *src, int stripid)
 	float next_h_touch_y;
 	float x_to_check;
 	float y_to_check;
-	int		rm = 0;
 
+	_normalize_angle(&src->view_angle);
+	src->rm = 0;
 	src->irfd = src->view_angle > 0 && src->view_angle < M_PI;
 	src->irfu = !src->irfd;
 	src->irfr = src->view_angle < 0.5 * M_PI || src->view_angle > 1.5 * M_PI;
@@ -44,7 +45,6 @@ void	_is_wall(t_src *src, int stripid)
 	//Yintercept
 	src->yintercept = floor(src->ply / 50) * 50;
 	src->yintercept += src->irfd ? 50 : 0;
-	//src->yintercept += src->irfu ? 50 : 0;
 	//Xintercept
 	src->xintercept = src->plx + (src->yintercept - src->ply) / tan(src->view_angle);
 	//end
@@ -57,9 +57,6 @@ void	_is_wall(t_src *src, int stripid)
 	src->xstep *= (src->irfr && src->xstep < 0) ? -1 : 1;
 	next_h_touch_x = src->xintercept;
 	next_h_touch_y = src->yintercept;
-	// if (src->irfu)
-	// 	rm = 1;
-
 	while (next_h_touch_x >= 0 && next_h_touch_x < src->img->width &&
            next_h_touch_y >= 0 && next_h_touch_y < src->img->height) {
         x_to_check = next_h_touch_x;
@@ -169,8 +166,8 @@ void DDA(t_src *src, int len)
 
 	float x1 = src->rays[len].wall_hitx;
 	float y1 = src->rays[len].wall_hity;
-	// float x1 = src->wall_hitx;
-	// float y1 = src->wall_hity;
+	// float x1 = src->rays[len].wall_hitx;
+	// float y1 = src->rays[len].wall_hity;
     int dx = x1 - x0;
     int dy = y1 - y0;
   
@@ -180,8 +177,6 @@ void DDA(t_src *src, int len)
     float X = x0;
     float Y = y0;
     for (int i = 0; i <= steps; i++) {
-		if (X >= x1 && Y >= y1)
-			break;
 		if (X > 0 && X < src->img->width && Y > 0 && Y < src->img->height)
        		mlx_put_pixel(src->img, X, Y, 0xffbfC0);
         X += Xinc;
@@ -194,14 +189,13 @@ void draw_ray(t_src *src)
     int num_rays = src->img->width;  // Number of rays
     float ray_angle_increment = 60.0 / num_rays;
 	_normalize_angle(&src->pa);
-	src->view_angle = src->pa - 30 * (M_PI / 180);
+	src->view_angle = src->pa - (FOV_ANGLE / 2);
     for (int i = 0; i < num_rays; i++)
     {
 		// logic
-		_normalize_angle(&src->view_angle);
 		_is_wall(src, i);
     	DDA(src, i);
-		src->view_angle += ray_angle_increment *  (M_PI / 180);
+		src->view_angle += FOV_ANGLE / num_rays;
     }
 }
 
@@ -216,6 +210,7 @@ void player_drawer(t_src *src)
 	py_len = -1;
 	src->px = src->plx + 15;
 	src->py = src->ply + 15;
+	draw_ray(src);
 	while (++py_len < 20)
 	{
 		px_len = -1;
@@ -227,5 +222,4 @@ void player_drawer(t_src *src)
 		src->py++;
 		src->px = src->plx + 15;
 	}
-	draw_ray(src);
 }
