@@ -53,6 +53,24 @@ typedef struct s_src
 	float		view_angle;
 	//end player
 	//wall_hit
+	int found_h_wall_hit;
+	float horz_wall_hit_x;
+	float horz_wall_hit_y;
+	float horz_wall_content;
+	float next_h_touch_x;
+	float next_h_touch_y;
+	float x_to_check;
+	float y_to_check;
+	//
+	int found_v_wall_hit;
+	float vert_wall_hit_x;
+	float vert_wall_hit_y;
+	float vert_wall_content;
+	float next_v_touch_x;
+	float next_v_touch_y;
+	float vert_hit_distance;
+	float horz_hit_distance;
+	//
 	float	was_hit_vertical;
 	float	wall_hit_content;
 	float	wall_hitx;
@@ -66,11 +84,16 @@ typedef struct s_src
 	int		irfu;
 	int		irfr;
 	int		irfl;
+	//
+	//
 	//end wall
 	float rm;
 	ray rays;
 }	t_src;
 
+void	horz_var_init(t_src *src);
+void	vert_var_init(t_src *src);
+void	looking_direction(t_src *src);
 void	randring(t_src *src);
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
@@ -80,4 +103,13 @@ void	DDA(t_src *src, int len);
 void	draw_ray(t_src *src);
 float	_normalize_angle(float src);
 int		map_has_wall_at(float x_to_check, float y_to_check, t_src *src);
+float	distance_between_pointes(float plx, float ply, float horz_wall_hit_x, float horz_wall_hit_y);
+//
+void	get_distance_x_y(t_src *src, int stripid);
+void	saving_distance(t_src *src, int stripid);
+void	horz_ray_casting(t_src *src, int stripid);
+void	vert_ray_casting(t_src *src, int stripid);
+//
+int		is_horz_wall(t_src *src);
+//
 #endif // !CUB3D_H
