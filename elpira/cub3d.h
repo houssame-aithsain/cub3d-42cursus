@@ -110,6 +110,10 @@ void	saving_distance(t_src *src, int stripid);
 void	horz_ray_casting(t_src *src, int stripid);
 void	vert_ray_casting(t_src *src, int stripid);
 //
-int		is_horz_wall(t_src *src);
+int		is_horz_wall_(t_src *src);
+int		is_vert_wall_(t_src *src);
+void	horz_setup(t_src *src);
+void	vert_setup(t_src *src);
+//
 //
 #endif // !CUB3D_H

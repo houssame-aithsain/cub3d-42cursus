@@ -9,12 +9,13 @@ LIBFT		=	./includes/libft/libft.a
 
 EXEC		=	cub3d.c map_drawer.c ./includes/get_next_line/get_next_line.c \
 				./includes/get_next_line/get_next_line_utils.c player_drawer.c \
-				movement.c ./rendring.c ray_casting.c ray_casting_utils.c \
+				movement.c ./rendring.c ./ray_casting/ray_casting.c \
+				./ray_casting/ray_casting_utils.c
 EXOBJ		=	$(EXEC:.c=.o)
 
 all			:	$(NAME)
 
-$(NAME)		:	$(LIBFT)    $(EXOBJ)
+$(NAME)		:	$(LIBFT) $(EXOBJ)
 	$(CC) -fsanitize=address $(MLX) -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
 
 $(LIBFT)	:

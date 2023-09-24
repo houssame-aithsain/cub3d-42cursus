@@ -11,7 +11,7 @@ void _new_line_remover(char *tmp)
 			tmp[i] = 0;
 	}
 }
-int main()
+int main(void)
 {
 	int i;
 	int x;
