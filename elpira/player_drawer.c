@@ -1,9 +1,10 @@
 #include "cub3d.h"
 
-void _normalize_angle(float *src) {
-    *src = fmod(*src, 2 * M_PI);
-    if (*src < 0)
-        *src += 2 * M_PI;
+float _normalize_angle(float src) {
+    src = fmod(src, 2 * M_PI);
+    if (src < 0)
+        src += 2 * M_PI;
+	return (src);
 }
 
 int map_has_wall_at(float x_to_check, float y_to_check, t_src *src) {
@@ -29,7 +30,6 @@ void	_is_wall(t_src *src, int stripid)
 	float next_h_touch_y;
 	float x_to_check;
 	float y_to_check;
-	int		rm = 0;
 
     //printf("src==[%f]\n", src->view_angle);
 	src->irfd = src->view_angle > 0 && src->view_angle < M_PI;
@@ -106,6 +106,8 @@ void	_is_wall(t_src *src, int stripid)
 	src->xstep = 50;
 	src->xstep *= src->irfl ? -1 : 1;
 
+	if (src->irfu)
+		src->rm = 1;
 	src->ystep = 50 * tan(src->view_angle);
 	src->ystep *= (src->irfu && src->ystep > 0) ? -1 : 1;
 	src->ystep *= (src->irfd && src->ystep < 0) ? -1 : 1;
@@ -161,18 +163,17 @@ void	_is_wall(t_src *src, int stripid)
 	src->irfu = src->irfu;
 	src->irfr = src->irfr;
 	src->irfl = src->irfl;
-    DDA(src, src->wall_hitx, src->wall_hity);
 }
 
-void DDA(t_src *src, float xx, float yy)
+void DDA(t_src *src, int len)
 {
-	float x0 = src->plx + 25;
-	float y0 = src->ply + 25;
+	float x0 = src->plx;
+	float y0 = src->ply;
 
-	float x1 = x0 - cos(src->view_angle) * 800;
-	float y1 = y0 - sin(src->view_angle) * 800;
-	// float x1 = src->wall_hitx;
-	// float y1 = src->wall_hity;
+	// float x1 = x0 - cos(src->view_angle) * 800;
+	// float y1 = y0 - sin(src->view_angle) * 800;
+	float x1 = src->wall_hitx;
+	float y1 = src->wall_hity;
     int dx = x1 - x0;
     int dy = y1 - y0;
   
@@ -182,8 +183,8 @@ void DDA(t_src *src, float xx, float yy)
     float X = x0;
     float Y = y0;
     for (int i = 0; i <= steps; i++) {
-        if (map_has_wall_at(X, Y, src))
-            break;
+        // if (map_has_wall_at(X, Y, src))
+        //     break;
 		if (X > 0 && X < src->img->width && Y > 0 && Y < src->img->height)
        		mlx_put_pixel(src->img, X, Y, 0xffbfC0);
         X += Xinc;
@@ -200,9 +201,9 @@ void draw_ray(t_src *src)
     for (int i = 0; i < num_rays; i++)
     {
 	//  	// logic
-	 	_normalize_angle(&src->view_angle);
-		// _is_wall(src);
-        DDA(src, 0, 0);
+	 	src->view_angle = _normalize_angle(src->view_angle);
+		_is_wall(src, i);
+        DDA(src, i);
 		src->view_angle += ray_angle_increment *  (M_PI / 180);
     }
 }
@@ -218,12 +219,12 @@ void player_drawer(t_src *src)
 	py_len = -1;
 	src->px = src->plx + 15;
 	src->py = src->ply + 15;
-	while (++py_len < 20)
+	while (++py_len < 10)
 	{
 		px_len = -1;
-		while (++px_len < 20)
+		while (++px_len < 10)
 		{
-			mlx_put_pixel(src->img, src->px, src->py, 0xF8003C);
+			mlx_put_pixel(src->img, src->px - 20, src->py - 20, 0xF8003C);
 			src->px++;
 		}
 		src->py++;

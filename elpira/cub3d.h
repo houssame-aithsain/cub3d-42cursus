@@ -67,7 +67,7 @@ typedef struct s_src
 	int		irfr;
 	int		irfl;
 	//end wall
-	int rm;
+	float rm;
 	ray rays;
 }	t_src;
 
@@ -76,8 +76,8 @@ void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
 void	_movement(void *src);
 int		get_map_lent(t_src *src, int flag);
-void	DDA(t_src *src, float xx, float yy);
+void	DDA(t_src *src, int len);
 void	draw_ray(t_src *src);
-void	_normalize_angle(float *src);
+float	_normalize_angle(float src);
 int		map_has_wall_at(float x_to_check, float y_to_check, t_src *src);
 #endif // !CUB3D_H
