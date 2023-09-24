@@ -192,6 +192,23 @@ void DDA(t_src *src, int len)
     }
 }
 
+void    ft_putpixels(t_src *src, int x, int y, int stop)
+{
+    for (size_t i = 0; i < src->img->height / 2; i++)
+    {
+        mlx_put_pixel(src->img, x, i, 0xFFFFFF);
+    }
+    for (size_t i = stop; i < src->img->height; i++)
+    {
+        mlx_put_pixel(src->img, x, i, 0x0000000);
+    }
+    while (y < stop)
+    {
+        mlx_put_pixel(src->img, x, y, 0xF5003C);
+        y++;
+    }
+
+}
 void draw_ray(t_src *src)
 {
     int num_rays = src->img->width;  // Number of rays
@@ -203,6 +220,23 @@ void draw_ray(t_src *src)
 	//  	// logic
 	 	src->view_angle = _normalize_angle(src->view_angle);
 		_is_wall(src, i);
+		// 3d
+        // Calculate how far the player is
+        float distanceProjPlane = (src->img->width / 2) / tan(src->view_angle / 2) ;
+        
+        float projectWallHeight = (50 / src->rays[i].distance) * distanceProjPlane;
+        
+        int WallStripeHeight =  projectWallHeight;
+        
+        int WallTopPixel = (src->img->height / 2) - (WallStripeHeight / 2);
+        
+        WallTopPixel = WallTopPixel < 0 ? 0 : WallTopPixel;
+        
+        int WallBottomPixel = (src->img->height / 2) + (WallStripeHeight / 2);
+        WallBottomPixel = WallBottomPixel > src->img->height ? src->img->height : WallBottomPixel;
+        
+        // render the wallTopPixel and wallBottomPixel
+        ft_putpixels(src, i, WallTopPixel, WallBottomPixel);
         DDA(src, i);
 		src->view_angle += ray_angle_increment *  (M_PI / 180);
     }
