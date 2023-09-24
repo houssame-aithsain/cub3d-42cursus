@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+int is_wall_check(t_src *src)
+{
+	if (src->map[(int)((src->ply + 5 + sin(src->pa))/ 50)][(int)((src->plx + 5 + cos(src->pa)) / 50)] == '1')
+		return (0);
+	return 1;
+}
+
 void _movement(void *src)
 {
 	t_src *sr;
@@ -9,13 +16,19 @@ void _movement(void *src)
 		exit(0);
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_W))
 	{
-		sr->ply += sin(sr->pa);
-		sr->plx += cos(sr->pa);
+		if (is_wall_check(sr))
+		{
+			sr->ply += sin(sr->pa);
+			sr->plx += cos(sr->pa);
+		}
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 	{
-		sr->ply -= sin(sr->pa);
-		sr->plx -= cos(sr->pa);
+		if (is_wall_check(sr))
+		{
+			sr->ply -= sin(sr->pa);
+			sr->plx -= cos(sr->pa);
+		}
 	}
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
 	{

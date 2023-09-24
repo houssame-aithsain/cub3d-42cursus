@@ -71,8 +71,8 @@ void map_drawer(t_src *src)
 				// just to see the player position
 				//_put_pixel(src, 50, 0xF81200);
 				// end
-				src->plx = src->x * 50;
-				src->ply = src->y * 50;
+				src->plx = (src->x * 50) + 25;
+				src->ply = (src->y * 50) + 25;
 			}
 			src->x++;
 		}

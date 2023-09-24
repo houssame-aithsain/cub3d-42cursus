@@ -141,28 +141,28 @@ void	_is_wall(t_src *src, int stripid)
 		: INT_MAX;
 	if (vert_hit_distance < horz_hit_d)
 	{
-		src->distance = vert_hit_distance;
-		src->wall_hitx = vert_wall_hit_x;
-		src->wall_hity = vert_wall_hit_y;
-		src->wall_hit_content = vert_wall_content;
-		src->was_hit_vertical = true;
+		src->rays[stripid].distance = vert_hit_distance;
+		src->rays[stripid].wall_hitx = vert_wall_hit_x;
+		src->rays[stripid].wall_hity = vert_wall_hit_y;
+		src->rays[stripid].wall_hit_content = vert_wall_content;
+		src->rays[stripid].was_hit_vertical = true;
 	}
 	else
 	{
-		src->distance = horz_hit_d;
-		src->wall_hitx = horz_wall_hit_x;
-		src->wall_hity = horz_wall_hit_y;
-		src->wall_hit_content = horz_wall_content;
-		src->was_hit_vertical = false;
+		src->rays[stripid].distance = horz_hit_d;
+		src->rays[stripid].wall_hitx = horz_wall_hit_x;
+		src->rays[stripid].wall_hity = horz_wall_hit_y;
+		src->rays[stripid].wall_hit_content = horz_wall_content;
+		src->rays[stripid].was_hit_vertical = false;
 	}
 	// printf("hor:%f\n",horz_hit_d);
 	// printf("ver:%f\n",vert_hit_distance);
 	// printf("x==[%f]\n", src->wall_hitx);
 	// printf("y==[%f]\n", src->wall_hity);
-	src->irfd = src->irfd;
-	src->irfu = src->irfu;
-	src->irfr = src->irfr;
-	src->irfl = src->irfl;
+	src->rays[stripid].irfd = src->irfd;
+	src->rays[stripid].irfu = src->irfu;
+	src->rays[stripid].irfr = src->irfr;
+	src->rays[stripid].irfl = src->irfl;
 }
 
 void DDA(t_src *src, int len)
@@ -172,8 +172,8 @@ void DDA(t_src *src, int len)
 
 	// float x1 = x0 - cos(src->view_angle) * 800;
 	// float y1 = y0 - sin(src->view_angle) * 800;
-	float x1 = src->wall_hitx;
-	float y1 = src->wall_hity;
+	float x1 = src->rays[len].wall_hitx;
+	float y1 = src->rays[len].wall_hity;
     int dx = x1 - x0;
     int dy = y1 - y0;
   
@@ -192,23 +192,6 @@ void DDA(t_src *src, int len)
     }
 }
 
-void    ft_putpixels(t_src *src, int x, int y, int stop)
-{
-    for (size_t i = 0; i < src->img->height / 2; i++)
-    {
-        mlx_put_pixel(src->img, x, i, 0xFFFFFF);
-    }
-    for (size_t i = stop; i < src->img->height; i++)
-    {
-        mlx_put_pixel(src->img, x, i, 0x0000000);
-    }
-    while (y < stop)
-    {
-        mlx_put_pixel(src->img, x, y, 0xF5003C);
-        y++;
-    }
-
-}
 void draw_ray(t_src *src)
 {
     int num_rays = src->img->width;  // Number of rays
@@ -220,23 +203,6 @@ void draw_ray(t_src *src)
 	//  	// logic
 	 	src->view_angle = _normalize_angle(src->view_angle);
 		_is_wall(src, i);
-		// 3d
-        // Calculate how far the player is
-        float distanceProjPlane = (src->img->width / 2) / tan(src->view_angle / 2) ;
-        
-        float projectWallHeight = (50 / src->rays[i].distance) * distanceProjPlane;
-        
-        int WallStripeHeight =  projectWallHeight;
-        
-        int WallTopPixel = (src->img->height / 2) - (WallStripeHeight / 2);
-        
-        WallTopPixel = WallTopPixel < 0 ? 0 : WallTopPixel;
-        
-        int WallBottomPixel = (src->img->height / 2) + (WallStripeHeight / 2);
-        WallBottomPixel = WallBottomPixel > src->img->height ? src->img->height : WallBottomPixel;
-        
-        // render the wallTopPixel and wallBottomPixel
-        ft_putpixels(src, i, WallTopPixel, WallBottomPixel);
         DDA(src, i);
 		src->view_angle += ray_angle_increment *  (M_PI / 180);
     }
@@ -251,18 +217,18 @@ void player_drawer(t_src *src)
 
 	i = 0;
 	py_len = -1;
-	src->px = src->plx + 15;
-	src->py = src->ply + 15;
-	while (++py_len < 10)
+	src->px = src->plx;
+	src->py = src->ply;
+	while (++py_len < 20)
 	{
 		px_len = -1;
-		while (++px_len < 10)
+		while (++px_len < 20)
 		{
-			mlx_put_pixel(src->img, src->px - 20, src->py - 20, 0xF8003C);
+			mlx_put_pixel(src->img, src->px - 10, src->py -10, 0xF8003C);
 			src->px++;
 		}
 		src->py++;
-		src->px = src->plx + 15;
+		src->px = src->plx;
 	}
 	draw_ray(src);
 }
