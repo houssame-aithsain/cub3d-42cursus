@@ -1,4 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting_core.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 20:44:27 by hait-hsa          #+#    #+#             */
+/*   Updated: 2023/09/27 13:53:02 by hait-hsa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
+
+float	normalize_angle(float src)
+{
+	src = fmod(src, 2 * M_PI);
+	if (src < 0)
+		src += 2 * M_PI;
+	return (src);
+}
+
+int	map_has_wall_at(float x_to_check, float y_to_check, t_src *src)
+{
+	if (src->map[(int)(y_to_check / 50)][(int)(x_to_check / 50)] == '1')
+		return (1);
+	return (0);
+}
+
+float	distance_between_pointes(float x0, float y0, float x1, float y1)
+{
+	return (sqrt(((x1 - x0) * (x1 - x0)) + ((y1 - y0) * (y1 - y0))));
+}
 
 void	horz_ray_casting(t_src *src, int stripid)
 {

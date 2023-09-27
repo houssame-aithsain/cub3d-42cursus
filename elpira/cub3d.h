@@ -12,8 +12,15 @@
 
 #define WIDTH 0
 #define HEIGHT 1
-#define FOV_ANGLE (60 * (M_PI / 180))
+#define FOV_ANGLE (M_PI / 180)
 #define TILE_SIZE 50
+#define	LOOKING_DIR (M_PI / 2)
+#define	LEFT -1
+#define	RIGHT 1
+#define UP RIGHT
+#define DOWN LEFT
+#define	P_ANGLE_ROTATION 0.05
+#define RAY_COLOR 0xffbfC0
 
 typedef struct s_ray
 {
@@ -84,26 +91,24 @@ typedef struct s_src
 	int		irfu;
 	int		irfr;
 	int		irfl;
-	//
-	//
-	//end wall
 	float rm;
 	ray rays;
 }	t_src;
 
 void	horz_var_init(t_src *src);
 void	vert_var_init(t_src *src);
-void	looking_direction(t_src *src);
-void	randring(t_src *src);
+void	rendring(t_src *src);
 void	map_drawer(t_src *src);
 void	player_drawer(t_src *src);
-void	_movement(void *src);
+void	walk_direction(void *src);
+void	_looking_direction(t_src *src);
+void	looking_direction(t_src *src);
 int		get_map_lent(t_src *src, int flag);
-void	DDA(t_src *src, int len);
+void	dda(t_src *src, int len, float plx, float ply);
 void	draw_ray(t_src *src);
-float	_normalize_angle(float src);
+float	normalize_angle(float src);
 int		map_has_wall_at(float x_to_check, float y_to_check, t_src *src);
-float	distance_between_pointes(float plx, float ply, float horz_wall_hit_x, float horz_wall_hit_y);
+float	distance_between_pointes(float x0, float y0, float x1, float y1);
 //
 void	get_distance_x_y(t_src *src, int stripid);
 void	saving_distance(t_src *src, int stripid);

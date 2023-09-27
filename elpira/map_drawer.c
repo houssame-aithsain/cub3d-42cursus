@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_drawer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 13:55:03 by hait-hsa          #+#    #+#             */
+/*   Updated: 2023/09/27 13:55:41 by hait-hsa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int get_map_lent(t_src *src, int flag)
+int	get_map_lent(t_src *src, int flag)
 {
-	int i;
-	int y;
-	int lent;
+	int	i;
+	int	y;
+	int	lent;
 
 	y = -1;
 	lent = 0;
@@ -29,10 +41,10 @@ int get_map_lent(t_src *src, int flag)
 	return (i * 50);
 }
 
-void _put_pixel(t_src *src, int size, uint32_t color)
+void	_put_pixel(t_src *src, int size, uint32_t color)
 {
-	int px_len;
-	int py_len;
+	int	px_len;
+	int	py_len;
 
 	py_len = -1;
 	while (++py_len < size)
@@ -49,7 +61,7 @@ void _put_pixel(t_src *src, int size, uint32_t color)
 	src->py = src->y * size;
 }
 
-void map_drawer(t_src *src)
+void	map_drawer(t_src *src)
 {
 	src->y = 0;
 	src->py = 0;
@@ -68,9 +80,6 @@ void map_drawer(t_src *src)
 				_put_pixel(src, 50, 0xFFFFFF);
 			if (!src->plx && src->map[src->y][src->x] == 'N')
 			{
-				// just to see the player position
-				//_put_pixel(src, 50, 0xF81200);
-				// end
 				src->plx = (src->x * 50) + 25;
 				src->ply = (src->y * 50) + 25;
 			}
