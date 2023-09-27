@@ -14,7 +14,7 @@
 #define HEIGHT 1
 #define FOV_ANGLE (M_PI / 180)
 #define TILE_SIZE 50
-#define	LOOKING_DIR (M_PI / 2)
+#define	LK_DIR (M_PI / 2)
 #define	LEFT -1
 #define	RIGHT 1
 #define UP RIGHT

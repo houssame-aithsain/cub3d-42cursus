@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 14:04:38 by hait-hsa          #+#    #+#             */
+/*   Updated: 2023/09/27 14:07:41 by hait-hsa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	clean_exit(t_src *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src->map[i])
@@ -11,9 +23,9 @@ void	clean_exit(t_src *src)
 	mlx_delete_image(src->mlx, src->img);
 	mlx_terminate(src->mlx);
 	exit(0);
-
 }
-void path_checker(t_src *src, float next_y, float next_x, int flag)
+
+void	path_checker(t_src *src, float next_y, float next_x, int flag)
 {
 	if (flag == 1)
 	{
@@ -27,7 +39,7 @@ void path_checker(t_src *src, float next_y, float next_x, int flag)
 	}
 }
 
-void _looking_direction(t_src *src)
+void	_looking_direction(t_src *src)
 {
 	if (mlx_is_key_down(src->mlx, MLX_KEY_LEFT))
 		src->pa = normalize_angle(src->pa - P_ANGLE_ROTATION);
@@ -36,12 +48,14 @@ void _looking_direction(t_src *src)
 	rendring(src);
 }
 
-void walk_direction(void *src)
+void	walk_direction(void *src)
 {
-	t_src *sr;
-	float next_x = 0;
-	float next_y = 0;
+	float	next_x;
+	float	next_y;
+	t_src	*sr;
 
+	next_x = 0;
+	next_y = 0;
 	sr = (t_src *)src;
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_ESCAPE))
 		clean_exit(sr);
@@ -50,8 +64,8 @@ void walk_direction(void *src)
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 		path_checker(sr, sin(sr->pa), cos(sr->pa), DOWN);
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
-		path_checker(sr, sin(sr->pa + LOOKING_DIR), cos(sr->pa + LOOKING_DIR), LEFT);
+		path_checker(sr, sin(sr->pa + LK_DIR), cos(sr->pa + LK_DIR), LEFT);
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
-		path_checker(sr, sin(sr->pa + LOOKING_DIR), cos(sr->pa + LOOKING_DIR), RIGHT);
+		path_checker(sr, sin(sr->pa + LK_DIR), cos(sr->pa + LK_DIR), RIGHT);
 	_looking_direction(src);
 }
