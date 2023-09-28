@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*   ray_casting_extraction.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:32:07 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/09/24 20:42:32 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:44:30 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	horz_var_init(t_src *src)
 void	vert_var_init(t_src *src)
 {
 	src->found_v_wall_hit = false;
-	src->found_v_wall_hit = 0;
 	src->vert_wall_hit_x = 0;
 	src->vert_wall_hit_y = 0;
 	src->vert_wall_content = 0;

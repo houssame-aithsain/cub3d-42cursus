@@ -38,7 +38,8 @@ typedef struct s_ray
 	int		irfu;
 	int		irfr;
 	int		irfl;
-} ray[1250];
+	int		to_check;
+} ray;
 
 typedef struct s_src
 {
@@ -92,9 +93,39 @@ typedef struct s_src
 	int		irfr;
 	int		irfl;
 	float rm;
-	ray rays;
+	ray *rays;
 }	t_src;
+//
+typedef struct s_dir
+{
+	char *key;
+	char *value;
+	struct s_dir *next;
+} t_dir;
 
+typedef struct t_var {
+	
+	float x, y, angle;
+	int is_present;
+	
+} var;
+
+typedef struct s_cub3d
+{
+	char **map;
+	char player_dir;
+	int	pos;
+	int ka;
+	int sides;
+	int wrapper;
+	int weird_ins;
+	int player_checker;
+	int dup;
+	int rgb ;
+	int cm;
+	var vars;
+}		t_cub3d;
+//
 void	horz_var_init(t_src *src);
 void	vert_var_init(t_src *src);
 void	rendring(t_src *src);
@@ -120,5 +151,7 @@ int		is_vert_wall_(t_src *src);
 void	horz_setup(t_src *src);
 void	vert_setup(t_src *src);
 //
+t_dir	*ft_check_first_lines(int fd, int fl);
+t_cub3d *ft_parser_cub3d(char *v);
 //
 #endif // !CUB3D_H

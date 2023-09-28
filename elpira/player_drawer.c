@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:40:38 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/09/27 13:48:31 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/27 20:00:01 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void	player_drawer(t_src *src)
 	py_len = -1;
 	src->px = src->plx;
 	src->py = src->ply;
-	while (++py_len < 20)
+	while (++py_len < 5)
 	{
 		px_len = -1;
-		while (++px_len < 20)
+		while (++px_len < 5)
 		{
-			mlx_put_pixel(src->img, src->px - 10, src->py -10, 0xF8003C);
+			mlx_put_pixel(src->img, src->px - 2, src->py - 2, 0xF8003C);
 			src->px++;
 		}
 		src->py++;
