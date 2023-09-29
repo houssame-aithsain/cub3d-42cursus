@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:08:16 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/09/28 13:40:53 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:42:07 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ int main(int argc, char **argv)
 	src.map[i] = NULL;
 	free(tmp);
 	close(fd);
-	// cub = ft_parser_cub3d(argv[1]);
+	// cub = ft_parser_cub3d("map.cub");
 	// printf("##################[checked now]##############\n");
+	// exit(0);
 	// printf("%s\n", cub->map[0]);
 	// if (!cub->map)
-		// exit(0);
+	// 	exit(0);
 	// src.map = cub->map;
 	src.plx = 0;
 	src.pa = 90 * (M_PI / 180);
@@ -60,7 +61,7 @@ int main(int argc, char **argv)
 	src.rays = malloc(sizeof(ray) * src.img->width + 1);
 	i = -1;
 	while (++i <= src.img->width)
-		src.rays[i].to_check = 0;
+		src.rays[i].distance = -1;
 	mlx_loop_hook(src.mlx, &walk_direction, &src);
 	mlx_image_to_window(src.mlx, src.img, 0, 0);
 	mlx_loop(src.mlx);

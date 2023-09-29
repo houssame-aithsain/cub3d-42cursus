@@ -6,11 +6,13 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:19:08 by gothmane          #+#    #+#             */
-/*   Updated: 2023/09/28 12:46:55 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/28 15:39:05 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+// #include "../gnl/get_next_line.h"
+// #include <fcntl.h>
 
 int ft_strcmp_cub(char *s1, char *s2)
 {
@@ -84,7 +86,7 @@ int ft_check_if_map_starts(char *file)
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
-	while (line && line[0])
+	while (line)
 	{
 		if (line[0])
 		{
@@ -290,10 +292,9 @@ int	ft_count_the_map(char *name)
 	{
 		free(line);
 		line = get_next_line(fd);
-
 	}
 	nbr++;
-	while (line && line[0])
+	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -310,13 +311,14 @@ char **ft_get_map_2d(int fd)
 
 	map = malloc(sizeof(char *) * ft_count_the_map("map.cub") + 1);
 	map[0] = get_next_line(fd);
+
 	while (map[0] && map[0][0] == '\n')
 	{
 		free(map[0]);
 		map[0] = get_next_line(fd);
 	}
 	i--;
-	while (map[++i])
+	while (map[i])
 	{
 		map[i + 1] = get_next_line(fd);
 		i++;
@@ -694,11 +696,10 @@ t_cub3d *ft_parser_cub3d(char *v)
 	nbr_start = ft_check_if_map_starts(v);
 	fd = open(v, O_RDONLY);
 	if (fd == -1)
-		return (0);	
-	dir = ft_check_first_lines(fd, nbr_start);	
+		return (0);
+	dir = ft_check_first_lines(fd, nbr_start);
 	cub->map = ft_get_map_2d(fd);
-	printf("%s\n", cub->map[0]);
-	exit(0);
+
 	if (dir == NULL)
 	{
 		printf("The dir array that holds data related to he map is empty ! Check for errors in the data or the file !!\n");
@@ -719,7 +720,8 @@ t_cub3d *ft_parser_cub3d(char *v)
 	cub->rgb = -1;
 	cub->cm = 0;
 	cub->pos = 0;
-	cub->player_dir = 0;	
+	cub->player_dir = 0;
+	
 	cub->pos = ft_detect_pos_of_player(cub->map);
 	cub->dup = ft_check_first_data_section(dir);
 	cub->weird_ins = ft_check_for_diff_chars(cub->map);
@@ -767,122 +769,46 @@ t_cub3d *ft_parser_cub3d(char *v)
 
 // int main()
 // {
-	// (void) ac;
-	// (void) av;
-	
-	// int fd;
-	// t_dir *dir = NULL;
-	// t_cub3d *cub = NULL;
-	
-	// if (ac != 2)
-	// 	return (0);
-	// int nbr_start = 0;
-	// cub = malloc(sizeof(t_cub3d));
-	// nbr_start = ft_check_if_map_starts(av[1]);
-	// fd = open(av[1], O_RDONLY);
-	// if (fd == -1)
-	// 	return (0);
-	// dir = ft_check_first_lines(fd, nbr_start);
-	// cub->map = ft_get_map_2d(fd);
-	
-	// int i = 0;
-	// (void)i;
-	// if (dir == NULL)
-	// {
-	// 	printf("The dir array that holds data related to he map is empty ! Check for errors in the data or the file !!\n");
-	// 	return (0);
-	// }
-	// if (!cub->map)
-	// 	return (0);
-	// int a = ft_count_2d(m);
-	// int ase = 0;
-	// while (ase < a)
-	// {
-	// 	free(m[ase]);
-	// }
-	// free(m);
-	
-	// t_dir *as = dir;
-	// while (as)
-	// {
-	// 	printf("Key = %s || value = %s\n", as->key, as->value);
-	// 	as = as->next;
-	// }
-	// close(fd);
-	// if (ft_count_2d(cub->map) < 1)
-	// {
-		
-	// 	printf("The map array that holds data related to the map is empty ! Check the map\n");
-	// 	exit(0);
-	// }
-	// printf("MAAAAAAAAAAAAAAAAAAAAAAAAAAAAP\n");
-	// while (cub->map[i])
-	// {
-	// 	printf("%s", cub->map[i]);
-	// 	i++;
-	// }
-	// printf("END MAAAAAAAAAAAP\n");
-
-	// cub->ka = 0;
-	// cub->sides = 0;
-	// cub->wrapper = 0;
-	// cub->weird_ins = 0;
-	// cub->player_checker = 0;
-	// cub->dup = 0;
-	// cub->rgb = -1;
-	// cub->cm = 0;
-	// cub->pos = 0;
-	// cub->player_dir = 0;
-	
-	// cub->pos = ft_detect_pos_of_player(cub->map);
-	// cub->dup = ft_check_first_data_section(dir);
-	// cub->weird_ins = ft_check_for_diff_chars(cub->map);
-	// cub->wrapper = ft_check_wrapper(cub->map);
-	// cub->sides = ft_check_sides_map(cub->map);
-	// cub->cm = ft_rbg_comma(dir);
-	// cub->player_dir = ft_player_direction(cub->map);
-	// if (cub->cm == 4)
-	// {
-	// 	// printf("****** Checking RGB *******\n");
-	// 	cub->rgb = ft_rbg_checker(dir);
-	// }
-	// if (cub->sides == 0 && cub->wrapper == 0)
-	// 	cub->ka = ft_check_map_2d(cub->map);
-	// cub->player_checker = ft_check_player_dup(cub->map);
-	
-	// if (cub->ka != 0 || cub->sides != 0 || cub->wrapper != 0
-	// 	|| cub->weird_ins != 0 || cub->player_checker != 0
-	// 	|| cub->dup != 0 || cub->rgb != 0 || cub->cm != 2
-	// 	|| cub->pos != 0 || cub->player_dir ==  0) 
-	// 	return (0);
-	// printf("\n\n\n\n");
-	// printf("#########################\n");
-	// printf("====== SUMMARY ======\n");
-	// printf("RBG = %d\n", cub->rgb);
-	// // printf("start = %d\n", cub->nbr_start);
-	// printf("dup = %d\n", cub->dup);
-	// printf("weird_ins = %d\n", cub->weird_ins);
-	// printf("sides = %d\n", cub->sides);
-	// printf("check for khwa = %d\n", cub->ka);
-	// printf("wrapper = %d\n", cub->wrapper);
-	// printf("player_checker = %d\n", cub->player_checker);
-	// printf("player position checker = %d\n", cub->pos);
-	// printf("#########################\n");
-	
-// 	t_cub3d *cub;
-// 	cub = ft_parser_cub3d("map.cub");
-	
-// 	if (!cub || !cub->map)
-// 		exit(0);
-// 	int i = 0;
-// 	printf("MAAAAAAAAAAAAAAAAAAAAAAAAAAAAP\n");
-// 	while (cub->map[i])
-// 	{
-// 		printf("%s", cub->map[i]);
-// 		i++;
-// 	}
-	
-// 	// printf("[%c]\n", cub->map[i - 1][ft_strlen(cub->map[i - 1] - 1)]);
-// 	printf("END MAAAAAAAAAAAP\n");
-// 	return (0);
+//     // int        i;
+//     // int        x;
+//     // int        fd;
+//     // char    *tmp;
+//     t_cub3d    *cub;
+//     // t_src    src;
+    
+//     // i = 0;
+//     // fd = open("map.cub", O_RDONLY);
+//     // src.map = malloc(sizeof(char *) * 14 + 1);
+//     // tmp = get_next_line(fd);
+//     // while (tmp && tmp[0])
+//     // {
+//     //     _new_line_remover(tmp);
+//     //     src.map[i] = ft_strdup(tmp);
+//     //     free(tmp);
+//     //     tmp = get_next_line(fd);
+//     //     i++;
+//     // }
+//     // src.map[i] = NULL;
+//     // free(tmp);
+//     // close(fd);
+//     cub = ft_parser_cub3d("map.cub");
+//     printf("##################[checked now]##############\n");
+//     printf("%s\n", cub->map[0]);
+//     exit(0);
+//     if (!cub->map)
+//         exit(0);
+//     // src.map = cub->map;
+//     // src.plx = 0;
+//     // src.pa = 90 * (M_PI / 180);
+//     // src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);
+//     // src.img = mlx_new_image(src.mlx, get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH));
+//     // src.rays = malloc(sizeof(ray) * src.img->width + 1);
+//     // i = -1;
+//     // while (++i <= src.img->width)
+//     //     src.rays[i].distance = -1;
+//     // mlx_loop_hook(src.mlx, &walk_direction, &src);
+//     // mlx_image_to_window(src.mlx, src.img, 0, 0);
+//     // mlx_loop(src.mlx);
+//     // mlx_terminate(src.mlx);
+//     // return (EXIT_SUCCESS);
 // }

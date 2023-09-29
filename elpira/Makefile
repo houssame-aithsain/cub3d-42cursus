@@ -17,7 +17,7 @@ EXOBJ		=	$(EXEC:.c=.o)
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT) $(EXOBJ)
-	$(CC)  $(MLX) -g -fsanitize=address -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
+	$(CC)  $(MLX)  -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
 
 $(LIBFT)	:
 	make -C ./includes/libft
