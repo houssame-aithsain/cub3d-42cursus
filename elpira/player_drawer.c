@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:40:38 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/09/28 17:37:56 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/09/29 10:29:02 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	dda(t_src *src, int len, float plx, float ply)
 	ply = src->ply;
 	while (++i <= steps)
 	{
+		if (map_has_wall_at(plx, ply, src))
+			break;
 		if (plx > 0 && plx < src->img->width
 			&& ply > 0 && ply < src->img->height)
 			mlx_put_pixel(src->img, plx, ply, RAY_COLOR);
