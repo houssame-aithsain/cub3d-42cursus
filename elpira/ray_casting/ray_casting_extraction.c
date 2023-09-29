@@ -60,22 +60,22 @@ void	saving_distance(t_src *src, int stripid)
 {
 	if (src->vert_hit_distance < src->horz_hit_distance)
 	{
-		src->rays[stripid].distance = src->vert_hit_distance;
-		src->rays[stripid].wall_hitx = src->vert_wall_hit_x;
-		src->rays[stripid].wall_hity = src->vert_wall_hit_y;
-		src->rays[stripid].wall_hit_content = src->vert_wall_content;
-		src->rays[stripid].was_hit_vertical = true;
+		src->rays.distance = src->vert_hit_distance;
+		src->rays.wall_hitx = src->vert_wall_hit_x;
+		src->rays.wall_hity = src->vert_wall_hit_y;
+		src->rays.wall_hit_content = src->vert_wall_content;
+		src->rays.was_hit_vertical = true;
 	}
 	else
 	{
-		src->rays[stripid].distance = src->horz_hit_distance;
-		src->rays[stripid].wall_hitx = src->horz_wall_hit_x;
-		src->rays[stripid].wall_hity = src->horz_wall_hit_y;
-		src->rays[stripid].wall_hit_content = src->horz_wall_content;
-		src->rays[stripid].was_hit_vertical = false;
+		src->rays.distance = src->horz_hit_distance;
+		src->rays.wall_hitx = src->horz_wall_hit_x;
+		src->rays.wall_hity = src->horz_wall_hit_y;
+		src->rays.wall_hit_content = src->horz_wall_content;
+		src->rays.was_hit_vertical = false;
 	}
-	src->rays[stripid].irfd = src->irfd;
-	src->rays[stripid].irfu = src->irfu;
-	src->rays[stripid].irfr = src->irfr;
-	src->rays[stripid].irfl = src->irfl;
+	src->rays.irfd = src->irfd;
+	src->rays.irfu = src->irfu;
+	src->rays.irfr = src->irfr;
+	src->rays.irfl = src->irfl;
 }

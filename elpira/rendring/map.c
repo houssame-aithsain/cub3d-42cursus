@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_drawer.c                                       :+:      :+:    :+:   */
+/*   _map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	get_map_lent(t_src *src, int flag)
 {
@@ -61,7 +61,7 @@ void	_put_pixel(t_src *src, int size, uint32_t color)
 	src->py = src->y * size;
 }
 
-void	map_drawer(t_src *src)
+void	_map(t_src *src)
 {
 	src->y = 0;
 	src->py = 0;

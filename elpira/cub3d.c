@@ -31,37 +31,13 @@ int main(int argc, char **argv)
 	char	*tmp;
 	t_cub3d	*cub;
 	t_src	src;
-	
-	i = 0;
-	fd = open("map.cub", O_RDONLY);
-	src.map = malloc(sizeof(char *) * 14 + 1);
-	tmp = get_next_line(fd);
-	while (tmp && tmp[0])
-	{
-		_new_line_remover(tmp);
-		src.map[i] = ft_strdup(tmp);
-		free(tmp);
-		tmp = get_next_line(fd);
-		i++;
-	}
-	src.map[i] = NULL;
-	free(tmp);
-	close(fd);
-	// cub = ft_parser_cub3d("map.cub");
-	// printf("##################[checked now]##############\n");
-	// exit(0);
-	// printf("%s\n", cub->map[0]);
-	// if (!cub->map)
-	// 	exit(0);
-	// src.map = cub->map;
+
+	cub = ft_parser_cub3d("map.cub");
+	src.map = cub->map;
 	src.plx = 0;
 	src.pa = 90 * (M_PI / 180);
 	src.mlx = mlx_init(get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH), "CUB3D", true);
 	src.img = mlx_new_image(src.mlx, get_map_lent(&src, HEIGHT), get_map_lent(&src, WIDTH));
-	src.rays = malloc(sizeof(ray) * src.img->width + 1);
-	i = -1;
-	while (++i <= src.img->width)
-		src.rays[i].distance = -1;
 	mlx_loop_hook(src.mlx, &walk_direction, &src);
 	mlx_image_to_window(src.mlx, src.img, 0, 0);
 	mlx_loop(src.mlx);

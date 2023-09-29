@@ -27,26 +27,26 @@ void	clean_exit(t_src *src)
 
 void	path_checker(t_src *src, float next_y, float next_x, int flag)
 {
-	if (((next_x + src->plx) < 49 || (next_y + src->ply) < 49)
-		|| ((next_x + src->plx) > src->img->width - 49)
-		|| ((next_y + src->ply) > src->img->height - 49))
+	if ((((next_x * 3) + src->plx) < 49 || ((next_y * 3) + src->ply) < 49)
+		|| (((next_x * 3) + src->plx) > src->img->width - 49)
+		|| (((next_y * 3) + src->ply) > src->img->height - 49))
 		return ;
 	if (flag == 1)
 	{
-		if (src->map[(int)((src->ply + next_y)) / 50]
-			[(int)((src->plx + next_x)) / 50] != '1')
+		if (src->map[(int)((src->ply + (next_y * 3))) / 50]
+			[(int)((src->plx + (next_x * 3))) / 50] != '1')
 		{
-			src->ply += next_y;
-			src->plx += next_x;
+			src->ply += (next_y * 3);
+			src->plx += (next_x * 3);
 		}
 	}
 	else
 	{
-		if (src->map[(int)((src->ply - next_y)) / 50]
-			[(int)((src->plx - next_x)) / 50] != '1')
+		if (src->map[(int)((src->ply - (next_y * 3))) / 50]
+			[(int)((src->plx - (next_x * 3))) / 50] != '1')
 		{
-			src->ply -= next_y;
-			src->plx -= next_x;
+			src->ply -= (next_y * 3);
+			src->plx -= (next_x * 3);
 		}
 	}
 }
@@ -72,8 +72,8 @@ void	walk_direction(void *src)
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 		path_checker(sr, sin(sr->pa), cos(sr->pa), DOWN);
 	if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
-		path_checker(sr, sin(sr->pa + LK_DIR), cos(sr->pa + LK_DIR), LEFT);
-	if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
 		path_checker(sr, sin(sr->pa + LK_DIR), cos(sr->pa + LK_DIR), RIGHT);
+	if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
+		path_checker(sr, sin(sr->pa + LK_DIR), cos(sr->pa + LK_DIR), LEFT);
 	_looking_direction(src);
 }

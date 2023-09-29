@@ -7,9 +7,9 @@ NAME		=	cub3d
 
 LIBFT		=	./includes/libft/libft.a
 
-EXEC		=	cub3d.c map_drawer.c ./includes/get_next_line/get_next_line.c \
-				./includes/get_next_line/get_next_line_utils.c player_drawer.c \
-				movements.c ./rendring.c ./ray_casting/ray_casting_extraction.c \
+EXEC		=	cub3d.c ./rendring/map.c ./includes/get_next_line/get_next_line.c \
+				./includes/get_next_line/get_next_line_utils.c ./rendring/player.c \
+				movements.c ./rendring/rendring.c ./ray_casting/ray_casting_extraction.c \
 				./ray_casting/ray_casting_utils.c ./ray_casting/ray_casting_core.c \
 				./parsing/parser1.c
 EXOBJ		=	$(EXEC:.c=.o)
@@ -17,7 +17,7 @@ EXOBJ		=	$(EXEC:.c=.o)
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT) $(EXOBJ)
-	$(CC)  $(MLX)  -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
+	$(CC)  $(MLX) -g -fsanitize=address -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
 
 $(LIBFT)	:
 	make -C ./includes/libft

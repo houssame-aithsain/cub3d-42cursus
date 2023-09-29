@@ -92,8 +92,8 @@ typedef struct s_src
 	int		irfu;
 	int		irfr;
 	int		irfl;
-	float rm;
-	ray *rays;
+	float	rm;
+	ray		rays;
 }	t_src;
 //
 typedef struct s_dir
@@ -129,14 +129,14 @@ typedef struct s_cub3d
 void	horz_var_init(t_src *src);
 void	vert_var_init(t_src *src);
 void	rendring(t_src *src);
-void	map_drawer(t_src *src);
-void	player_drawer(t_src *src);
+void	_map(t_src *src);
+void	_rays(t_src *src);
 void	walk_direction(void *src);
 void	_looking_direction(t_src *src);
 void	looking_direction(t_src *src);
 int		get_map_lent(t_src *src, int flag);
 void	dda(t_src *src, int len, float plx, float ply);
-void	draw_ray(t_src *src);
+void	_rays(t_src *src);
 float	normalize_angle(float src);
 int		map_has_wall_at(float x_to_check, float y_to_check, t_src *src);
 float	distance_between_pointes(float x0, float y0, float x1, float y1);
