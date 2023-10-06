@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:32:07 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/09/28 12:44:30 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/04 10:58:08 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	looking_direction(t_src *src)
 
 void	get_distance_x_y(t_src *src, int stripid)
 {
+	(void)stripid;
 	if (src->found_h_wall_hit)
 		src->horz_hit_distance = distance_between_pointes(src->plx, src->ply,
 				src->horz_wall_hit_x, src->horz_wall_hit_y);
@@ -60,22 +61,23 @@ void	saving_distance(t_src *src, int stripid)
 {
 	if (src->vert_hit_distance < src->horz_hit_distance)
 	{
-		src->rays.distance = src->vert_hit_distance;
-		src->rays.wall_hitx = src->vert_wall_hit_x;
-		src->rays.wall_hity = src->vert_wall_hit_y;
-		src->rays.wall_hit_content = src->vert_wall_content;
-		src->rays.was_hit_vertical = true;
+		src->rays[stripid].distance = src->vert_hit_distance;
+		src->rays[stripid].wall_hitx = src->vert_wall_hit_x;
+		src->rays[stripid].wall_hity = src->vert_wall_hit_y;
+		src->rays[stripid].wall_hit_content = src->vert_wall_content;
+		src->rays[stripid].was_hit_vertical = true;
 	}
 	else
 	{
-		src->rays.distance = src->horz_hit_distance;
-		src->rays.wall_hitx = src->horz_wall_hit_x;
-		src->rays.wall_hity = src->horz_wall_hit_y;
-		src->rays.wall_hit_content = src->horz_wall_content;
-		src->rays.was_hit_vertical = false;
+		src->rays[stripid].distance = src->horz_hit_distance;
+		src->rays[stripid].wall_hitx = src->horz_wall_hit_x;
+		src->rays[stripid].wall_hity = src->horz_wall_hit_y;
+		src->rays[stripid].wall_hit_content = src->horz_wall_content;
+		src->rays[stripid].was_hit_vertical = false;
 	}
-	src->rays.irfd = src->irfd;
-	src->rays.irfu = src->irfu;
-	src->rays.irfr = src->irfr;
-	src->rays.irfl = src->irfl;
+	src->correct_distance = src->rays[stripid].distance * cos(src->view_angle - src->pa);
+	src->rays[stripid].irfd = src->irfd;
+	src->rays[stripid].irfu = src->irfu;
+	src->rays[stripid].irfr = src->irfr;
+	src->rays[stripid].irfl = src->irfl;
 }

@@ -14,16 +14,16 @@
 
 int	is_horz_wall_(t_src *src)
 {
-	if (src->next_h_touch_x >= 0 && src->next_h_touch_x < src->img->width
-		&&src->next_h_touch_y >= 0 && src->next_h_touch_y < src->img->height)
+	if (src->next_h_touch_x >= 0 && src->next_h_touch_x < src->width
+		&&src->next_h_touch_y >= 0 && src->next_h_touch_y < src->height)
 		return (true);
 	return (false);
 }
 
 int	is_vert_wall_(t_src *src)
 {
-	if (src->next_v_touch_x >= 0 && src->next_v_touch_x < src->img->width
-		&& src->next_v_touch_y >= 0 && src->next_v_touch_y < src->img->height)
+	if (src->next_v_touch_x >= 0 && src->next_v_touch_x < src->width
+		&& src->next_v_touch_y >= 0 && src->next_v_touch_y < src->height)
 		return (true);
 	return (false);
 }

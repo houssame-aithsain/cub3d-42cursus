@@ -1,6 +1,6 @@
 MLX 		= /Users/hait-hsa/MLX42/build/libmlx42.a
 CC			=	gcc
-#CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
+# CFLAGS		=	-g -fsanitize=address
 MLXFLAGS	=	$(MLX) -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L "/Users/hait-hsa/.brew/opt/glfw/lib/"
 RM			=	rm -rf
 NAME		=	cub3d
@@ -17,7 +17,7 @@ EXOBJ		=	$(EXEC:.c=.o)
 all			:	$(NAME)
 
 $(NAME)		:	$(LIBFT) $(EXOBJ)
-	$(CC)  $(MLX) -g -fsanitize=address -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
+	$(CC) -g -fsanitize=address -Ofast $(MLX) -Iinclude $(MLXFLAGS) $(EXOBJ) $(LIBFT) -o $(NAME)
 
 $(LIBFT)	:
 	make -C ./includes/libft

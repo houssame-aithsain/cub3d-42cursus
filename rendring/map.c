@@ -68,20 +68,20 @@ void	_map(t_src *src)
 	while (src->map[src->y])
 	{
 		src->x = 0;
-		while (src->map[src->y][src->x])
+		while (src->map[src->y][src->x] && src->map[src->y][src->x] != '\n')
 		{
-			src->px = src->x * 50;
-			src->py = src->y * 50;
+			src->px = (src->x * M_TILE_SIZE);
+			src->py = (src->y * M_TILE_SIZE);
 			if (src->map[src->y][src->x] == '1')
-				_put_pixel(src, 50, 0xFF0000FF);
-			else if (src->map[src->y][src->x] == 32)
-				_put_pixel(src, 50, 0x2FC546);
-			else
-				_put_pixel(src, 50, 0xFFFFFF);
-			if (!src->plx && src->map[src->y][src->x] == 'N')
+				_put_pixel(src, M_TILE_SIZE, 0xFF0000FF);
+			else if (src->map[src->y][src->x] == '0' || src->map[src->y][src->x] == src->cub->player_dir)
+				_put_pixel(src, M_TILE_SIZE, 0xcff000);
+			if (!src->plx && src->map[src->y][src->x] == src->cub->player_dir)
 			{
-				src->plx = (src->x * 50) + 25;
-				src->ply = (src->y * 50) + 25;
+				src->plx = (src->x * TILE_SIZE) + (TILE_SIZE / 2);
+				src->ply = (src->y * TILE_SIZE) + (TILE_SIZE / 2);
+				src->mplx = (src->x * M_TILE_SIZE) + (M_TILE_SIZE / 2);
+				src->mply = (src->y * M_TILE_SIZE) + (M_TILE_SIZE / 2);
 			}
 			src->x++;
 		}
