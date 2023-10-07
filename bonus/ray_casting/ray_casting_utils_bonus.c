@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 20:44:20 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 13:23:16 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_horz_wall_(t_src *src)
 {
-	if (src->next_h_touch_x >= 0 && src->next_h_touch_x < src->width
-		&&src->next_h_touch_y >= 0 && src->next_h_touch_y < src->height)
+	if (src->next_h_x >= 0 && src->next_h_x < src->width
+		&&src->next_h_y >= 0 && src->next_h_y < src->height)
 		return (true);
 	return (false);
 }
@@ -43,8 +43,8 @@ void	horz_setup(t_src *src)
 		src->xstep *= -1;
 	if (src->irfr && src->xstep < 0)
 		src->xstep *= -1;
-	src->next_h_touch_x = src->xintercept;
-	src->next_h_touch_y = src->yintercept;
+	src->next_h_x = src->xintercept;
+	src->next_h_y = src->yintercept;
 }
 
 void	vert_setup(t_src *src)

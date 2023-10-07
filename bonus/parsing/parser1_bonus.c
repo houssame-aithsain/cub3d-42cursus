@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gothmane <gothmane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 13:19:08 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:21:18 by gothmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ int	ft_sar(t_utils *u)
 		ft_sp_utils(u, "C", &u->f);
 	else if (ar[0] != ' ')
 	{
-		printf("Error\nStrange data! Abortion\n");
-		system("leaks -q cub3d");
+		write(2, "Error\nStrange data! Abortion\n", 30);
 		exit(1);
 	}
 	return (1);

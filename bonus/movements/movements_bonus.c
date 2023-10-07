@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:04:38 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 10:35:00 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	walk_direction(void *src)
 	else if (mlx_is_key_down(sr->mlx, MLX_KEY_S))
 		path_checker(sr, sin(sr->pa) * 3, cos(sr->pa) * 3, DOWN);
 	else if (mlx_is_key_down(sr->mlx, MLX_KEY_D))
-		path_checker(sr, sin(sr->pa + LK_DIR) * 2,
-			cos(sr->pa + LK_DIR) * 2, RIGHT);
+		path_checker(sr, sin(sr->pa + M_PI_2) * 2,
+			cos(sr->pa + M_PI_2) * 2, RIGHT);
 	else if (mlx_is_key_down(sr->mlx, MLX_KEY_A))
-		path_checker(sr, sin(sr->pa + LK_DIR) * 2,
-			cos(sr->pa + LK_DIR) * 2, LEFT);
+		path_checker(sr, sin(sr->pa + M_PI_2) * 2,
+			cos(sr->pa + M_PI_2) * 2, LEFT);
 	else if (_looking_direction(src))
 		return ;
 }

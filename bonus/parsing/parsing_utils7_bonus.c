@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils7_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gothmane <gothmane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:02:36 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:21:27 by gothmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ int	ft_convert_to_rgb(t_dir *dir, t_cub3d *cub)
 				cub->ceiling = rgb_to_int(ra.r, ra.g, ra.b, 255);
 			if (cub->floor == -404 || cub->ceiling == -404)
 			{
-				printf("Error\nFix your rgb\n");
-		system("leaks -q cub3d");
+				write(2, "Error\nFix your rgb\n", 20);
 				exit(1);
 			}
 		}

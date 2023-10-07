@@ -41,28 +41,6 @@ int	get_map_lent(t_src *src, int flag)
 	return (i * 50);
 }
 
-void	_put_pixel(t_src *src, int size, uint32_t color)
-{
-	int	px_len;
-	int	py_len;
-
-	py_len = -1;
-	while (++py_len < size)
-	{
-		px_len = -1;
-		while (++px_len < size)
-		{
-			printf("px == %f\n", src->px / M_TILE_SIZE);
-			printf("py == %f\n", src->py / M_TILE_SIZE);
-			mlx_put_pixel(src->img, src->px, src->py, color);
-			src->px++;
-		}
-		src->py++;
-		src->px = src->x * size;
-	}
-	src->py = src->y * size;
-}
-
 void	_map(t_src *src)
 {
 	src->y = 0;

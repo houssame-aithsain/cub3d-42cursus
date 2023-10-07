@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gothmane <gothmane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:57:54 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 16:39:52 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:21:52 by gothmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	ft_check_sides_map(char **map)
 	last_idx = 0;
 	if (!map)
 	{
-		printf("Error\nCheck your map\n");
-		system("leaks -q cub3d");
+		write(2, "Error\nCheck your map\n", 22);
 		exit(1);
 	}
 	while (map[i])

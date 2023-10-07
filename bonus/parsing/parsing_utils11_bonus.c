@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils11_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gothmane <gothmane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 10:45:26 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:24:10 by gothmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,14 @@ int	ft_check_map_2d(char **map)
 	return (0);
 }
 
-t_cub3d	*ft_parser_cub3d(int ac, char *v)
+t_cub3d	*ft_parser_cub3d(char *v)
 {
-	int		fd;
 	t_cub3d	*cub;
-	int		nbr_start;
 
-	(void)ac;
-	nbr_start = 0;
-	fd = 0;
-	_init_cub3d(nbr_start, &cub, v, fd);
+	_init_cub3d(&cub, v);
 	if (!cub->map || !cub->dir)
 	{
-		printf("Error\n");
-		system("leaks -q cub3d");
+		write(2, "Error\n", 7);
 		exit(1);
 	}
 	ft_init_var_cub(cub);
@@ -76,31 +70,32 @@ t_cub3d	*ft_parser_cub3d(int ac, char *v)
 	cub->player_checker = ft_check_player_dup(cub->map);
 	if (ft_cond_cub(cub) == 0)
 	{
-		printf("Error\n");
-		system("leaks -q cub3d");
+		write(2, "Error\n", 7);
 		exit(1);
 	}
 	return (cub);
 }
 
-void	_init_cub3d(int nbr_start, t_cub3d **cub, char *v, int fd)
+void	_init_cub3d(t_cub3d **cub, char *v)
 {
+	int	fd;
+	int	nbr_start;
+
+	fd = 0;
 	nbr_start = 0;
 	(*cub) = malloc(sizeof(t_cub3d));
 	nbr_start = ft_check_if_map_starts(v);
 	fd = open(v, O_RDONLY);
 	if (!(*cub) || fd == -1 || args_c(2, v) != 0)
 	{
-		printf("Error\nCheck your file and the arguments\n");
-		system("leaks -q cub3d");
+		write(2, "Error\nCheck your file and the arguments\n", 41);
 		exit(1);
 	}
 	(*cub)->dir = ft_check_first_lines(fd, nbr_start);
 	(*cub)->map = ft_get_map_2d(fd, v);
 	if (!(*cub)->map)
 	{
-		printf("Error\nCheck your map\n");
-		system("leaks -q cub3d");
+		write(2, "Error\nCheck your map\n", 22);
 		exit(1);
 	}
 }

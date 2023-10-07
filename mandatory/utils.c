@@ -6,18 +6,17 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:42:16 by hait-hsa          #+#    #+#             */
-/*   Updated: 2023/10/06 15:15:18 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 13:09:55 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-int get_map_size(char **map, int flag)
+int	get_map_size(char **map, int flag)
 {
-	int i;
-	int len;
-	int tmp;
+	int	i;
+	int	len;
+	int	tmp;
 
 	len = 0;
 	i = 0;
@@ -37,9 +36,9 @@ int get_map_size(char **map, int flag)
 	return (len);
 }
 
-void _new_line_remover(char *map)
+void	_new_line_remover(char *map)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (map && map[++i])

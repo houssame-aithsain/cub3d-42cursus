@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   texture1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gothmane <gothmane@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 10:50:16 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 20:06:25 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:18:40 by gothmane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 uint8_t	*ft_return_pixels(t_src *src, 
-		mlx_texture_t *txt, t_int_point p1, t_point pa)
+		mlx_texture_t *txt, t_int_vue_ports p1, t_vue_ports pa)
 {
 	(void)src;
 	return (&txt->pixels[(((int)pa.yy * txt->width)
 				+ p1.x) * txt->bytes_per_pixel]);
 }
 
-uint8_t	*ft_rp2(t_src *src, mlx_texture_t *txt, t_int_point p2)
+uint8_t	*ft_rp2(t_src *src, mlx_texture_t *txt, t_int_vue_ports p2)
 {
 	(void)src;
 	return (&src->img->pixels[((p2.y * (src->img->width))
 				+ p2.x) * txt->bytes_per_pixel]);
 }
 
-void	ft_draw_texture(t_src *src, t_point pa, float h, mlx_texture_t *txt)
+void	ft_textures(t_src *src, t_vue_ports pa, float h, mlx_texture_t *txt)
 {
-	t_int_point	p1;
-	t_int_point	p2;
-	uint8_t		*px_1;
-	uint8_t		*pi_1;
+	t_int_vue_ports	p1;
+	t_int_vue_ports	p2;
+	uint8_t			*px_1;
+	uint8_t			*pi_1;
 
 	p1.x = pa.xx;
 	p1.y = -1;
@@ -55,7 +55,7 @@ void	ft_draw_texture(t_src *src, t_point pa, float h, mlx_texture_t *txt)
 	}
 }
 
-void	draw_sky_floor(t_src *src)
+void	ft_skyndfloor_drawer(t_src *src)
 {
 	float	i;
 	float	j;
@@ -74,29 +74,29 @@ void	draw_sky_floor(t_src *src)
 	}
 }
 
-void	draw_col(t_src *src, t_point p, ray *r, t_load t)
+void	ft_coldrawer(t_src *src, t_vue_ports p, t_ray *r, t_load t)
 {
-	t_point			pi;
+	t_vue_ports		tp;
 	mlx_texture_t	*txt;
-	float			width_ratio;
+	float			wr;
 
-	pi.x = p.x;
-	pi.y = p.y;
-	if (!r->was_hit_vertical)
+	tp.x = p.x;
+	tp.y = p.y;
+	if (!r->hit_vertical)
 	{
 		txt = t.e;
 		if (r->irfu)
 			txt = t.w;
-		width_ratio = (float) txt->width / 50;
-		pi.xx = fmod(r->wall_hitx, 50) * width_ratio;
+		wr = (float) txt->width / 50;
+		tp.xx = fmod(r->wall_hitx, 50) * wr;
 	}
 	else
 	{
 		txt = t.n;
 		if (r->irfl)
 			txt = t.s;
-		width_ratio = (float) txt->width / 50;
-		pi.xx = fmod(r->wall_hity, 50) * width_ratio;
+		wr = (float) txt->width / 50;
+		tp.xx = fmod(r->wall_hity, 50) * wr;
 	}
-	ft_draw_texture(src, pi, src->img->height - (p.y * 2), txt);
+	ft_textures(src, tp, src->img->height - (p.y * 2), txt);
 }

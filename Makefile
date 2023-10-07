@@ -5,16 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: Invalid date        by hait-hsa          #+#    #+#              #
-#    Updated: 2023/10/06 21:36:54 by hait-hsa         ###   ########.fr        #
+#    Created: 2023/10/07 13:08:14 by hait-hsa          #+#    #+#              #
+#    Updated: 2023/10/07 15:25:47 by hait-hsa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 MLX 		= /Users/$(USER)/MLX42/build/libmlx42.a
 
 CC			=	cc
 
-CFLAGS		=	-Wall -Wextra -Werror -Ofast 
+CFLAGS		=	-Wall -Wextra -Werror
 
 MLXFLAGS	=	$(MLX) -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
@@ -79,7 +80,7 @@ re			:	fclean all
 bonus		:	$(NAME_B)
 
 $(NAME_B)	:	$(LIBFT) $(EXOBJ_B)
-	$(CC) $(CFLAGS) $(MLX) -Iinclude $(MLXFLAGS) $(EXOBJ_B) $(LIBFT) -o $(NAME_B)	
+	$(CC) $(CFLAGS) $(MLX) -Iinclude $(MLXFLAGS) $(EXOBJ_B) $(LIBFT) -o $(NAME_B)
 
 clean_bonus	:
 	$(RM) $(EXOBJ_B)

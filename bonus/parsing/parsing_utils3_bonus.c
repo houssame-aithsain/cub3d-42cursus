@@ -6,7 +6,7 @@
 /*   By: hait-hsa <hait-hsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:53:39 by gothmane          #+#    #+#             */
-/*   Updated: 2023/10/06 21:03:21 by hait-hsa         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:16:07 by hait-hsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_cond_check(t_ut_check sar, char **map)
 		return (1);
 	if (ft_condition_arr(map, sar, check) == 1)
 	{
-		printf("LKHWA ERROR\n");
+		write(2, "LKHWA ERROR\n", 13);
 		return (1);
 	}
 	return (0);
