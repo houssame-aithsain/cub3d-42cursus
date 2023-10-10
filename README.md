@@ -12,17 +12,6 @@
   navigates through a maze and can view the environment in a pseudo-3D perspective.
 </p>
 
-<h2>Prerequisites</h2>
-
-<p>
-  Before running cub3d, ensure you have the following prerequisites:
-</p>
-
-<ul>
-  <li><a href="https://www.gnu.org/software/make/">GNU Make</a></li>
-  <li><a href="https://gcc.gnu.org/">GCC (GNU Compiler Collection)</a></li>
-</ul>
-
 <h2>Getting Started</h2>
 
 <p>
