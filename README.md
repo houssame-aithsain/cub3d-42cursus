@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>cub3d - 42curses</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 20px;
-    }
-    h1, h2, h3 {
-      margin-top: 20px;
-    }
-    code {
-      background-color: #f4f4f4;
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: "Courier New", monospace;
-    }
-  </style>
-</head>
-<body>
-
-<h1>cub3d - 42curses</h1>
-
 <p>
   <strong>cub3d</strong> is a project for 42curses, where you build a simple
   3D game using raycasting techniques. This README provides an overview of
