@@ -25,9 +25,9 @@ M			=	./mandatory/
 
 B			=	./bonus/
 
-NAME		=	cub3d
+NAME		=	cub3D
 
-NAME_B		=	cub3d_bonus
+NAME_B		=	cub3D_bonus
 
 LIBFT		=	./includes/libft/libft.a
 
