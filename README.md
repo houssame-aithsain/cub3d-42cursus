@@ -57,7 +57,7 @@
 
 <p>
   If you have any questions or concerns regarding the cub3d project, please contact:
-  <a href="mailto:your_email@example.com">your_email@example.com</a>
+  <a href="mailto:houssame1337@gmail.com">your_email@example.com</a>
 </p>
 
 </body>
